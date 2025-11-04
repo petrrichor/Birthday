@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Cute Password Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0 15px;
+    }
+
+    #page1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    img {
+      width: 35vw;
+      max-width: 140px;
+      height: auto;
+      margin-bottom: -15px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #1565c0;
+      margin: 10px 0 20px;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      background-color: #bbdefb;
+      border-radius: 50%;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      max-width: 220px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .key, .delete-btn, .send-btn {
+      width: 55px;
+      height: 55px;
+      font-size: 22px;
+      border: none;
+      border-radius: 50%;
+      background-color: #e3f2fd;
+      color: #1565c0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .key:hover, .delete-btn:hover, .send-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .key:hover, .delete-btn:hover {
+      background-color: #bbdefb;
+    }
+
+    .send-btn {
+      font-size: 26px;
+      background-color: #64b5f6;
+      color: white;
+    }
+
+    .send-btn:hover {
+      background-color: #42a5f5;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      padding: 15px 25px;
+      text-align: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+      width: 80%;
+      max-width: 320px;
+    }
+
+    .popup.active {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .popup h3 {
+      color: #1e88e5;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .popup p {
+      font-size: 13px;
+      color: #555;
+      margin: 5px 0 10px;
+    }
+
+    .popup button {
+      background-color: #64b5f6;
+      border: none;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-family: 'Poppins';
+      transition: 0.2s;
+    }
+
+    .popup button:hover {
+      background-color: #42a5f5;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 5;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    footer {
+      font-size: 12px;
+      color: #90caf9;
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 500;
+    }
+
+    @media (max-width: 400px) {
+      .key, .delete-btn, .send-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+      }
+      img {
+        width: 40vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page1">
+    <img src="https://i.pinimg.com/originals/80/7b/5c/807b5c4b02e765bb4930b7c66662ef4b.gif" alt="cat" />
+
+    <div class="dots">
+      <div class="dot" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+      <div class="dot" id="dot4"></div>
+    </div>
+
+    <div class="keypad">
+      <button class="key">7</button>
+      <button class="key">8</button>
+      <button class="key">9</button>
+      <button class="key">4</button>
+      <button class="key">5</button>
+      <button class="key">6</button>
+      <button class="key">1</button>
+      <button class="key">2</button>
+      <button class="key">3</button>
+      <button class="delete-btn" id="deleteBtn">✖</button>
+      <button class="key">0</button>
+      <button class="send-btn" id="sendBtn">❤︎</button>
+    </div>
+
+    <footer>a little project by Asha 𖹭</footer>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <h3>Wrong Password!</h3>
+    <p>Clue: ulang tahun suami pertama Asha (bulan-tanggal)</p>
+    <button id="closePopup">OK</button>
+  </div>
+
+  <script>
+    const keys = document.querySelectorAll('.key');
+    const dots = document.querySelectorAll('.dot');
+    const sendBtn = document.getElementById('sendBtn');
+    const deleteBtn = document.getElementById('deleteBtn');
+    const popup = document.getElementById('popup');
+    const overlay = document.getElementById('overlay');
+    const closePopup = document.getElementById('closePopup');
+    let input = '';
+
+    keys.forEach(key => {
+      key.addEventListener('click', () => {
+        if (input.length < 4) {
+          input += key.textContent;
+          dots[input.length - 1].style.backgroundColor = '#42a5f5';
+        }
+      });
+    });
+
+    sendBtn.addEventListener('click', () => {
+      if (input === '0209') {
+        document.body.innerHTML = `
+          <div style="text-align:center; padding:50px; font-family:'Poppins';">
+            <h2 style="color:#1e88e5;">Happy Birthday Agam! 🎉</h2>
+            <p style="font-size:18px; color:#555;">Wishing you a day full of smiles and calm blue skies 💙</p>
+          </div>`;
+      } else {
+        popup.classList.add('active');
+        overlay.classList.add('active');
+      }
+    });
+
+    deleteBtn.addEventListener('click', () => {
+      if (input.length > 0) {
+        dots[input.length - 1].style.backgroundColor = '#bbdefb';
+        input = input.slice(0, -1);
+      }
+    });
+
+    closePopup.addEventListener('click', () => {
+      popup.classList.remove('active');
+      overlay.classList.remove('active');
+      input = '';
+      dots.forEach(dot => dot.style.backgroundColor = '#bbdefb');
+    });
+  </script>
+</body>
+</html>
