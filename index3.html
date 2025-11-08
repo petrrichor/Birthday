@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>For Agam 💙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow-y: auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .envelope {
+      width: 180px;
+      padding-top: 220px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 10;
+      animation: wiggle 1.6s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      50% { transform: rotate(-3deg); }
+      75% { transform: rotate(2deg); }
+    }
+
+    .letter-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .letter {
+      background-color: #fff;
+      border-radius: 18px;
+      max-width: 320px;
+      width: 100%;
+      padding: 25px;
+      line-height: 1.7;
+      color: #333;
+      font-size: 15.5px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
+      pointer-events: none;
+      z-index: 5;
+      max-height: 70vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #90caf9 #ffffff;
+      text-align: justify;
+    }
+
+    .letter p {
+      text-indent: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .letter h1 {
+      text-align: center;
+      color: #1e88e5;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .read-more {
+      margin-top: 15px;
+      color: #1e88e5;
+      cursor: pointer;
+      font-weight: 600;
+      text-align: center;
+      display: block;
+    }
+
+    .letter::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .letter::-webkit-scrollbar-thumb {
+      background-color: #90caf9;
+      border-radius: 3px;
+    }
+
+    .letter::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .letter.show {
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 20;
+      pointer-events: all;
+    }
+
+    .letter .more {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .gift-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    .gift-icon {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gift-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .tap-text {
+      font-size: 13px;
+      color: #1e88e5;
+      margin-top: -12px;
+      font-weight: 600;
+      animation: blink 1.5s infinite ease-in-out;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .controls {
+      position: absolute;
+      top: -65px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    .controls.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .play-btn {
+      background: #90caf9;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+      background: #64b5f6;
+    }
+
+    .play-btn img {
+      width: 22px;
+      height: 22px;
+      filter: invert(100%);
+    }
+
+    footer {
+      font-size: 12px;
+      color: #90caf9;
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 500;
+    }
+
+    @media (max-width: 400px) {
+      h1 { font-size: 20px; }
+      .letter { font-size: 14.5px; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="envelope-container">
+    <img src="https://i.pinimg.com/474x/6e/f9/c9/6ef9c96a0754637947e7824ccb416885.jpg" alt="envelope" class="envelope" id="envelope">
+  </div>
+
+  <div class="letter-wrapper">
+    <div class="controls" id="controls">
+      <button id="playBtn" class="play-btn">
+        <img id="playIcon" src="https://cdn-icons-png.flaticon.com/512/9073/9073187.png" alt="Play">
+      </button>
+    </div>
+
+    <div class="letter" id="letter">
+      <h1>Happy birthday, Agam!</h1>
+      <p>
+        Selamat bertambah usia, Abang! Selamat ulang tahun, Adek! Dan selamat hari kelahiran, Agam. Another year of surviving... and you did it. Maybe this year wasn't always that kind, it might've left a few scars or a few sleepless nights. But you still made it through. You've grown, you've learned, and you've managed to get through it all. Oh you're not just cool, you're the coolest, Abang. And i'm proud of you, no matter what.
+        <br><span class="more">
+          Abang, semoga banyak harap yang terwujud di usia kamu yang akhirnya sampai di 19 tahun ini. Semoga banyak bahagia datang, dan semoga kamu selalu dikelilingi oleh orang-orang yang sayang sama kamu. I hope life always treats you gently, i really do. Semoga semesta selalu berpihak padamu, Abang. Semoga gak ada hal sial yang datang, dan semoga gak ada air mata yang jatuh sia-sia tahun ini. Semoga langkah kamu selalu ringan, hati kamu selalu tenang, dan semoga datang banyak alasan untuk kamu senyum tiap harinya.
+          <br><br>
+          ‎ ‎ ‎ Abang, terima kasih sudah bertahan sejauh ini, terima kasih sudah pilih untuk bangun dan berjuang lagi setiap harinya, terima kasih udah jadi Agam yang selalu bikin aku bangga. Abang, terima kasih untuk selalu mengusahakan segalanya, terima kasih untuk selalu berusaha jadi kuat. Please don't be too hard on yourself, Abang. You deserve to rest, to feel proud, and to be kind to yourself too. I appreciate you a lot, so please appreciate yourself even more, oke?
+          <br><br>
+          — With love, Asha
+        </span>
+      </p>
+
+      <div class="read-more">Read it slowly ⬇︎</div>
+
+      <div class="gift-container" id="giftContainer" style="display:none;">
+        <a href="https://padlet.com/petriichor/Birthday" target="_blank">
+          <img src="https://i.gifer.com/4AzH.gif" alt="Gift Icon" class="gift-icon">
+        </a>
+        <div class="tap-text">Tap here</div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" src="music.mp3"></audio>
+
+  <footer>a little project by Asha 𖹭</footer>
+
+  <script>
+    const envelopeContainer = document.getElementById("envelope-container");
+    const letter = document.getElementById("letter");
+    const controls = document.getElementById("controls");
+    const playBtn = document.getElementById("playBtn");
+    const playIcon = document.getElementById("playIcon");
+    const readMoreBtn = letter.querySelector(".read-more");
+    const moreText = letter.querySelector(".more");
+    const giftContainer = document.getElementById("giftContainer");
+    const bgMusic = document.getElementById("bgMusic");
+
+    envelopeContainer.addEventListener("click", () => {
+      envelopeContainer.style.opacity = "0";
+      envelopeContainer.style.pointerEvents = "none";
+      setTimeout(() => {
+        envelopeContainer.style.display = "none";
+        letter.classList.add("show");
+        controls.classList.add("show");
+      }, 800);
+    });
+
+    playBtn.addEventListener("click", () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/2920/2920686.png";
+      } else {
+        bgMusic.pause();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/9073/9073187.png";
+      }
+    });
+
+    readMoreBtn.addEventListener("click", () => {
+      moreText.style.display = "block";
+      readMoreBtn.style.display = "none";
+      giftContainer.style.display = "flex";
+    });
+  </script>
+</body>
+</html>

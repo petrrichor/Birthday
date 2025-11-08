@@ -244,18 +244,15 @@
       });
     });
 
-    sendBtn.addEventListener('click', () => {
-      if (input === '0209') {
-        document.body.innerHTML = `
-          <div style="text-align:center; padding:50px; font-family:'Poppins';">
-            <h2 style="color:#1e88e5;">Happy Birthday Agam! 🎉</h2>
-            <p style="font-size:18px; color:#555;">Wishing you a day full of smiles and calm blue skies 💙</p>
-          </div>`;
-      } else {
-        popup.classList.add('active');
-        overlay.classList.add('active');
-      }
-    });
+  sendBtn.addEventListener('click', () => {
+  if (input === '0209') {
+    window.location.href = "index2.html"; // pindah ke halaman 2
+  } else {
+    popup.classList.add('active');
+    overlay.classList.add('active');
+  }
+});
+
 
     deleteBtn.addEventListener('click', () => {
       if (input.length > 0) {
