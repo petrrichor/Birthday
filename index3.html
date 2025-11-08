@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>For Agam 💙</title>
+  <title>Agam's Day</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -18,6 +18,12 @@
       overflow-y: auto;
       text-align: center;
       position: relative;
+      transition: background 0.6s ease;
+    }
+
+    body.show-letter {
+      background: url('1.png') no-repeat center center fixed;
+      background-size: cover;
     }
 
     .envelope {
@@ -45,7 +51,7 @@
     }
 
     .letter {
-      background-color: #fff;
+      background-color: rgba(145, 0, 0, 0);
       border-radius: 18px;
       max-width: 320px;
       width: 100%;
@@ -199,6 +205,17 @@
       font-weight: 500;
     }
 
+    /* canvas untuk confetti */
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
     @media (max-width: 400px) {
       h1 { font-size: 20px; }
       .letter { font-size: 14.5px; padding: 20px; }
@@ -206,6 +223,8 @@
   </style>
 </head>
 <body>
+
+  <canvas id="confetti"></canvas>
 
   <div id="envelope-container">
     <img src="https://i.pinimg.com/474x/6e/f9/c9/6ef9c96a0754637947e7824ccb416885.jpg" alt="envelope" class="envelope" id="envelope">
@@ -225,9 +244,12 @@
         <br><span class="more">
           Abang, semoga banyak harap yang terwujud di usia kamu yang akhirnya sampai di 19 tahun ini. Semoga banyak bahagia datang, dan semoga kamu selalu dikelilingi oleh orang-orang yang sayang sama kamu. I hope life always treats you gently, i really do. Semoga semesta selalu berpihak padamu, Abang. Semoga gak ada hal sial yang datang, dan semoga gak ada air mata yang jatuh sia-sia tahun ini. Semoga langkah kamu selalu ringan, hati kamu selalu tenang, dan semoga datang banyak alasan untuk kamu senyum tiap harinya.
           <br><br>
-          ‎ ‎ ‎ Abang, terima kasih sudah bertahan sejauh ini, terima kasih sudah pilih untuk bangun dan berjuang lagi setiap harinya, terima kasih udah jadi Agam yang selalu bikin aku bangga. Abang, terima kasih untuk selalu mengusahakan segalanya, terima kasih untuk selalu berusaha jadi kuat. Please don't be too hard on yourself, Abang. You deserve to rest, to feel proud, and to be kind to yourself too. I appreciate you a lot, so please appreciate yourself even more, oke?
+          Abang, terima kasih sudah bertahan sejauh ini, terima kasih sudah pilih untuk bangun dan berjuang lagi setiap harinya, terima kasih udah jadi Agam yang selalu bikin aku bangga. Abang, terima kasih untuk selalu mengusahakan segalanya, terima kasih untuk selalu berusaha jadi kuat. Please don't be too hard on yourself, Abang. You deserve to rest, to feel proud, and to be kind to yourself too. I appreciate you a lot, so please appreciate yourself even more, oke?
           <br><br>
-          — With love, Asha
+          Dan kalau suatu hari nanti, kalau dunia terasa terlalu bising, semoga kamu masih bisa nemuin tenang di hal-hal kecil, segelas kopi, harum tanah setelah hujan, atau mungkin seekor kucing di jalan. Semoga kamu selalu inget, kamu gak harus selalu kuat setiap waktu. Gak apa-apa kalau kamu mau berhenti sebentar, istirahat, tarik nafas, dan mulai lagi pelan-pelan. Hidup gak harus selalu cepet, yang penting kamu tetap berjalan.<br><br>
+          Nineteen might sound like just a number, but it's also a promise, that you'll keep growing, keep learning, keep finding your way. Mungkin gak semua hari bakal terasa ringan, tapi semoga kamu selalu punya cahaya yang bisa kamu bawa sendiri, bahkan di hari paling gelap sekalipun. Kamu udah sejauh ini, and you keep going, Agam. That's something to be proud of.<br><br>
+          Semoga semua hal yang pernah kamu doakan pelan-pelan datang menghampiri. Happy birthday, Abang. Dunia beruntung punya kamu di dalamnya.<br><br>
+ — With love, Asha
         </span>
       </p>
 
@@ -262,8 +284,10 @@
       envelopeContainer.style.pointerEvents = "none";
       setTimeout(() => {
         envelopeContainer.style.display = "none";
+        document.body.classList.add("show-letter");
         letter.classList.add("show");
         controls.classList.add("show");
+        startConfetti(); // 🎉 mulai confetti pas surat muncul
       }, 800);
     });
 
@@ -282,6 +306,67 @@
       readMoreBtn.style.display = "none";
       giftContainer.style.display = "flex";
     });
+
+    // 🎊 Confetti bintang biru
+    function startConfetti() {
+      const canvas = document.getElementById("confetti");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const stars = [];
+      const numStars = 150;
+
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 4 + 2,
+          speed: Math.random() * 2 + 1,
+          angle: Math.random() * 360,
+          rotationSpeed: Math.random() * 3 + 1,
+          opacity: Math.random() * 0.5 + 0.5
+        });
+      }
+
+      function drawStar(x, y, r, rotation) {
+        ctx.beginPath();
+        ctx.moveTo(x, y - r);
+        for (let i = 0; i < 5; i++) {
+          ctx.lineTo(
+            x + r * Math.cos((18 + i * 72 + rotation) * Math.PI / 180),
+            y - r * Math.sin((18 + i * 72 + rotation) * Math.PI / 180)
+          );
+          ctx.lineTo(
+            x + (r / 2) * Math.cos((54 + i * 72 + rotation) * Math.PI / 180),
+            y - (r / 2) * Math.sin((54 + i * 72 + rotation) * Math.PI / 180)
+          );
+        }
+        ctx.closePath();
+        ctx.fillStyle = `rgba(30,136,229,${Math.random()})`;
+        ctx.fill();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => {
+          drawStar(star.x, star.y, star.size, star.angle);
+          star.y += star.speed;
+          star.angle += star.rotationSpeed;
+          if (star.y > canvas.height) {
+            star.y = -10;
+            star.x = Math.random() * canvas.width;
+          }
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // confetti ilang setelah 7 detik
+      setTimeout(() => {
+        canvas.style.display = "none";
+      }, 7000);
+    }
   </script>
 </body>
 </html>
